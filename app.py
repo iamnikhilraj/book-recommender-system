@@ -7,7 +7,7 @@ pt = pickle.load(open('pt.pkl','rb'))
 books = pickle.load(open('books.pkl','rb'))
 similarity_scores = pickle.load(open('similarity_scores.pkl','rb'))
 
-popular_df.replace('png','PNG',inplace=True)
+# popular_df.replace('png','PNG',inplace=True)
 app = Flask(__name__)
 
 @app.route('/')
