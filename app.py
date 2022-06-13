@@ -7,6 +7,7 @@ pt = pickle.load(open('pt.pkl','rb'))
 books = pickle.load(open('books.pkl','rb'))
 similarity_scores = pickle.load(open('similarity_scores.pkl','rb'))
 
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -26,8 +27,11 @@ def recommend_ui():
 @app.route('/recommend_books',methods=['post'])
 def recommend():
     user_input = request.form.get('user_input')
-    index = np.where(pt.index == user_input)[0][0]
-    similar_items = sorted(list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True)[1:5]
+    try:
+        index = np.where(pt.index == user_input)[0][0]
+        similar_items = sorted(list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True)[1:5]
+    except:
+        return ("Book not in the directory, Try : 'Animal Farm'")
 
     data = []
     for i in similar_items:
